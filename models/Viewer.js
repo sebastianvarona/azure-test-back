@@ -21,6 +21,10 @@ const ViewerSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    following: {
+        type: Array,
+        default: [],
+    }
 });
 
 const Viewer = mongoose.model('Viewer', ViewerSchema);

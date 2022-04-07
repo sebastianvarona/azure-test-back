@@ -28,6 +28,14 @@ const StreamerSchema = new mongoose.Schema({
     country: {
         type: String,
         required: true
+    },
+    followers: {
+        type: Array,
+        default: []
+    },
+    sorts: {
+        type: Array,
+        default: []
     }
 });
 

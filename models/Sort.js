@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const SortSchema = new mongoose.Schema({
+    streamerId: {
+        type: String,
+        required: true
+    },
     nombreSorteo: {
         type: String,
         required: true
@@ -16,6 +20,10 @@ const SortSchema = new mongoose.Schema({
         lowercase: true,
         unique: true,
         required: true,
+    },
+    participants: {
+        type: Array,
+        default: [],
     }
 });
 
