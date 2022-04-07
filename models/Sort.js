@@ -7,6 +7,7 @@ const SortSchema = new mongoose.Schema({
     },
     nombreSorteo: {
         type: String,
+        unique: true,
         required: true
     },
     date: {
