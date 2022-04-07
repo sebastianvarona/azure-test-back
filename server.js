@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 
-app.use('/user', require('./routes/router'));
+app.use('/api', require('./routes/router'));
 
 // Conexion con la BD
 Database.connect();
