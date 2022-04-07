@@ -6,22 +6,27 @@ const cSort= require('../controllers/cSort');
 const router = express.Router();
 
 // Viewer
-router.get('/viewer/', cViewer.listall);
-router.post('/viewer/', cViewer.create)
-router.get('/viewer/:key/:value', cViewer.find, cViewer.show)
-router.put('/viewer/:key/:value', cViewer.find, cViewer.update)
-router.delete('/viewer/:key/:value', cViewer.find, cViewer.deleted)
+router.get('/viewers', cViewer.listall);
+router.post('/viewer', cViewer.create)
+router.get('/viewer/:id', cViewer.show)
+router.put('/viewer/:id',  cViewer.update)
+router.delete('/viewer/:id', cViewer.deleted)
+
 
 // Streamer
-router.get('/streamer/', cStremer.listall);
-router.post('/streamer/', cStreamer.create)
-router.get('/streamer/:key/:value', cStreamer.find, cStreamer.show)
-router.put('/streamer/:key/:value', cStreamer.find, cStreamer.update)
-router.delete('/streamer/:key/:value', cStreamer.find, cStreamer.deleted)
+router.get('/streamers', cStreamer.listall);
+router.post('/streamer', cStreamer.create)
+router.get('/streamer/:id', cStreamer.show)
+router.put('/streamer/:id', cStreamer.update)
+router.delete('/streamer/:id', cStreamer.deleted)
+
+
 //Sorteo
-router.get('/sorteo/', cSort.listall);
+router.get('/sorteos/', cSort.listall);
 router.post('/sorteo/', cSort.create)
-router.get('/sorteo/:key/:value', cSort.find, cSort.show)
-router.put('/sorteo/:key/:value', cSort.find, cSort.update)
-router.delete('/sorteo/:key/:value', cSort.find, cSort.deleted)
+router.get('/sorteo/:id', cSort.show)
+router.put('/sorteo/:id', cSort.update)
+router.delete('/sorteo/:id', cSort.deleted)
+
+
 module.exports = router;

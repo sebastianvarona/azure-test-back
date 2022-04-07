@@ -17,44 +17,33 @@ function create(req, res) {
 
 }
 
-function show(req, res) {
-    if (req.body.error) return res.status(500).send({ error });
-    if (!req.body.streamers) return res.status(404).send({ message: 'Not Found' });
-    let streamers = req.body.streamers;
-    return res.status(200).send({ streamers });
+async function show(req, res) {
+    try {
+        const user = await Streamer.findById(req.params.id);
+        res.status(200).json(user);
+    } catch (err) {
+        res.status(500).json(err);
+    }
 }
 
-function update(req, res) {
-    if (req.body.error) return res.status(500).send({ error });
-    if (!req.body.streamers) return res.status(404).send({ message: 'Not Found' });
-    let streamer = req.body.streamers[0];
-    streamer = Object.assign(streamer, req.body);
-    streamer.save()
-        .then(streamer => res.status(200).send({ message: 'User Updated', streamer })
-        ).catch(err => res.status(500).send({ err }))
+async function update(req, res) {
+    try {
+        const streamer = await Streamer.findByIdAndUpdate(req.params.id, {
+            $set: req.body,
+        });
+        res.status(200).send({ message: 'User Updated', streamer });
+    } catch (err) {
+        res.status(500).send(err);
+    }
 }
 
-function deleted(req, res) {
-    if (req.body.error) return res.status(500).send({ error });
-    if (!req.body.streamers) return res.status(404).send({ message: 'Not Found' });
-    req.body.streamers[0].remove()
-        .then(streamer => {
-            res.status(200).send({ message: 'User removed', streamer })
-        }
-        ).catch(err => res.status(500).send({ err }));
-}
-
-function find(req, res, next) {
-    let query = {};
-    query[req.params.key] = req.params.value
-    Streamer.find(query).then(streamers => {
-        if (!streamers.length) return next();
-        req.body.streamers = streamers;
-        return next();
-    }).catch(err => {
-        req.body.error = err;
-        next();
-    })
+async function deleted(req, res) {
+    try {
+        const streamer = await Streamer.findByIdAndDelete(req.params.id);
+        res.status(200).send({ message: 'User Deleted', streamer });
+    } catch (err) {
+        res.status(500).send(err);
+    }
 }
 
 module.exports = {
@@ -62,6 +51,5 @@ module.exports = {
     show,
     create,
     update,
-    deleted,
-    find,
+    deleted
 }
